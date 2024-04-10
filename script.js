@@ -1,20 +1,19 @@
 const key = `82005d27a116c2880c8f0fcb866998a0`;
-let body = document.getElementsByTagName("body");
-let inputData = document.getElementById("input-display");
-let status = document.getElementById("output");
-let search = document.getElementById("search");
-let weatherImg = document.querySelector(".img-fluid");
-let weatherTemp = document.querySelector(".temp-details");
-let weatherCondition = document.querySelector(".weather-conditions");
-let cityLocation = document.querySelector(".city");
-let countryLocation = document.querySelector(".country");
-let loader = document.querySelector(".loader");
-let container = document.querySelector(".weather-container");
-let disable = document.querySelector(".disable");
-let errorImg = document.querySelector(".img-fluiddd");
-let errorMessage = document.querySelector(".weather-content");
+const body = document.getElementsByTagName("body");
+const inputData = document.getElementById("input-display");
+const search = document.getElementById("search");
+const weatherImg = document.querySelector(".img-fluid");
+const weatherTemp = document.querySelector(".temp-details");
+const weatherCondition = document.querySelector(".weather-conditions");
+const cityLocation = document.querySelector(".city");
+const countryLocation = document.querySelector(".country");
+const loader = document.querySelector(".loader");
+const container = document.querySelector(".weather-container");
+const disable = document.querySelector(".disable");
+const errorImg = document.querySelector(".img-fluiddd");
+const errorMessage = document.querySelector(".weather-content");
 let spinner = false;
-const displayCurrentWeather = () => {
+const currentLocationWeather = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async function (position) {
       const latitude = position.coords.latitude;
@@ -32,7 +31,7 @@ const displayCurrentWeather = () => {
   }
 }
 
-displayCurrentWeather();
+currentLocationWeather();
 const handleInputData = async () => {
   if (inputData.value == "") {
     alert("Enter city name");
@@ -62,8 +61,8 @@ const getLatitudeLongitude = async (cityName) => {
     spinner = false;
     autoSpinner();
     container.style.display = "block";
-    const data = await res.json();
-    return data[0];
+    const jsonData = await res.json();
+    return jsonData[0];
   }
   catch (e) {
     console.log(e);
@@ -78,19 +77,19 @@ const fetchData = async (_latitude, _longitude) => {
     const response = await fetch(
       `http://api.openweathermap.org/data/2.5/weather?lat=${_latitude}&lon=${_longitude}&appid=${key}`
     );
-    const APIINFO = await response.json();
+    const jsonResponse = await response.json();
     spinner = false;
     autoSpinner();
     container.style.display = "block";
-    const description = APIINFO.weather[0].description;
-    const WeatherCity = APIINFO.name;
-    const tempInKelvin = APIINFO.main.temp;
+    const description = jsonResponse.weather[0].description;
+    const cityName = jsonResponse.name;
+    const tempInKelvin = jsonResponse.main.temp;
     const tempInCelsius = Math.floor(tempInKelvin - 273.15) + "°";
-    const countryName = APIINFO.sys.country;
-    const iconCode = APIINFO.weather[0].icon;
-    const condition = APIINFO.weather[0].main;
+    const countryName = jsonResponse.sys.country;
+    const iconCode = jsonResponse.weather[0].icon;
+    const weatherStatus = jsonResponse.weather[0].main;
     return {
-      description, WeatherCity, tempInCelsius, countryName, iconCode, condition
+      description, cityName, tempInCelsius, countryName, iconCode, weatherStatus
     }
   } catch (e) {
     console.log(e);
@@ -98,33 +97,18 @@ const fetchData = async (_latitude, _longitude) => {
 };
 const displayWeatherInfo = (weatherDeatils) => {
   container.style.display = "block";
-  const { description, WeatherCity, tempInCelsius, countryName, iconCode, condition } = weatherDeatils;
+  const { description, WeatherCity, tempInCelsius, countryName, iconCode, weatherStatus } = weatherDeatils;
   weatherImg.src = `icons/${iconCode}.png`;
   weatherTemp.innerHTML = tempInCelsius;
   weatherCondition.innerHTML = description;
   cityLocation.innerHTML = WeatherCity;
   countryLocation.innerHTML = countryName;
-  document.body.style.backgroundImage = `url(/icons/${condition}.jpg)`;
+  document.body.style.backgroundImage = `url(/icons/${weatherStatus}.jpg)`;
 }
 search.addEventListener("click", handleInputData);
-inputData.addEventListener("keydown", (e) => {
-  if (e.value === "Enter") {
-    search.click();
-  }
-});
 const autoSpinner = () => {
   if (spinner)
     loader.style.display = "block";
   else
     loader.style.display = "none";
 }
-
-
-
-
-
-
-
-
-
-
