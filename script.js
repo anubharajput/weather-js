@@ -107,15 +107,15 @@ const fetchData = async (_latitude, _longitude) => {
 
       }
     })
-    const totelResponse = []
+    const forcastionDataObject = []
     fiveDaysData.forEach(element => {
       const { tempInCelsius, description, iconsCode, weatherStatus, day } = getDataForDay(element);
-      const values =
+      const weatherDetailObj =
         { description, cityName, tempInCelsius, countryName, iconsCode, weatherStatus, day };
-      totelResponse.push(values);
+        forcastionDataObject.push(weatherDetailObj);
 
     });
-    return totelResponse;
+    return forcastionDataObject;
   } catch (e) {
     console.log(e);
   }
