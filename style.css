@@ -96,7 +96,7 @@ body {
     font-size: 1.3rem;
 }
 
- .location {
+.location {
     display: flex;
     gap: 8px;
 }
@@ -123,20 +123,22 @@ body {
     font-size: 2rem;
     font-weight: bold;
 }
-.cards{
+
+.cards {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding:40px 20px;
+    padding: 40px 20px;
     flex-wrap: wrap;
 }
-.cards .card{
+
+.cards .card {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: rgba(233, 228, 228, 0.5);
-    padding:15px 32px;
+    padding: 15px 32px;
     border-radius: 10px;
 }
 
@@ -186,10 +188,11 @@ body {
     .container .weather-container .output .weather-conditions {
         font-size: 1.4rem;
     }
-    .cards{
+
+    .cards {
         flex-direction: column;
-        gap:15px;
-        width:85%;
+        gap: 15px;
+        width: 85%;
         margin: auto;
     }
 }
@@ -202,10 +205,10 @@ body {
 }
 
 @media screen and (min-width:768px) {
-    .cards{
+    .cards {
         flex-direction: row;
-        width:100%;
-        margin:auto;
+        width: 100%;
+        margin: auto;
         justify-content: center;
         gap: 25px;
     }
@@ -223,9 +226,10 @@ body {
     .container .weather-container {
         width: 30%;
     }
-    .cards{
+
+    .cards {
         gap: 32px;
-}
+    }
 }
 
 @media screen and (min-width:1440px) {
@@ -270,7 +274,8 @@ body {
     .container .weather-container .output .weather-conditions {
         font-size: 2.5rem;
     }
- .location {
+
+    .location {
         display: flex;
         gap: 13px;
         font-size: 1.5rem;
@@ -283,15 +288,18 @@ body {
     .weather-content {
         font-size: 30px;
     }
-    .cards .card h3{
+
+    .cards .card h3 {
         font-size: 2rem;
         font-weight: bold;
     }
+
     .cards .card {
         gap: 17px;
     }
-    .cal{
+
+    .cal {
         font-size: 33px;
         font-weight: 600;
     }
-    }
+}
