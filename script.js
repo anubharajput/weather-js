@@ -19,7 +19,6 @@ let cardContent = '';
 let spinner = false;
 const getDataForDay = (weatherItem) => {
   const day = dayNames[new Date(weatherItem.dt_txt).getDay()];
-
   const temp = weatherItem.main.temp;
   const tempInCelsius = Math.floor(temp - 273.15) + "°"
   const description = weatherItem.weather[0].description;
@@ -60,23 +59,24 @@ const handleInputData = async () => {
     const res = await getLatitudeLongitude(inputData.value);
     const lat = res?.lat
     const lon = res?.lon
-    if (lat == undefined && lon == undefined) {
+    if(lat && lon){
+      const weatherDeatils = await fetchData(lat, lon);
+      inputData.value = "";
+      weatherDeatils.forEach(element => {
+        displayWeatherInfo(element);
+      })}
+    else{
       disable.style.display = "block";
       container.style.display = "none";
       cards.style.display = "none";
       errorImg.src = `icons/unknown.png`;
       errorMessage.innerHTML = "NOT FOUND";
       document.body.style.backgroundImage = `url(/icons/bydefault.jpg)`;
-      inputData.value = "";
-    } else {
-      const weatherDeatils = await fetchData(lat, lon);
-      inputData.value = "";
-      weatherDeatils.forEach(element => {
-        displayWeatherInfo(element);
-      })
+        inputData.value = "";
     }
   }
 }
+
 const getLatitudeLongitude = async (cityName) => {
   try {
     autoSpinner(true);

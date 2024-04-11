@@ -10,6 +10,7 @@ body {
     background-size: cover;
     background-image: url(icons/modern-white-background-free-vector.jpg);
     width: 100%;
+    min-height: 100vh;
 }
 
 .weather-card {
