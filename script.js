@@ -17,16 +17,6 @@ let flag = true;
 const date = new Date();
 let cardContent = '';
 let spinner = false;
-const getDataForDay = (weatherItem) => {
-  const day = dayNames[new Date(weatherItem.dt_txt).getDay()];
-  const temp = weatherItem.main.temp;
-  const tempInCelsius = Math.floor(temp - 273.15) + "°"
-  const description = weatherItem.weather[0].description;
-  const iconsCode = weatherItem.weather[0].icon;
-  const weatherStatus = weatherItem.weather[0].main;
-  return { tempInCelsius, description, iconsCode, weatherStatus, day };
-}
-
 const currentLocationWeather = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(async function (position) {
@@ -38,10 +28,7 @@ const currentLocationWeather = () => {
       })
 
     }, () => {
-      disable.style.display = "block";
-      container.style.display = "none";
-      cards.style.display = "none";
-      errorImg.src = `icons/unknown.png`;
+      errorMessageHandler();
       errorMessage.innerHTML = "PERMISSION BLOCKED";
     });
   }
@@ -66,10 +53,7 @@ const handleInputData = async () => {
         displayWeatherInfo(element);
       })}
     else{
-      disable.style.display = "block";
-      container.style.display = "none";
-      cards.style.display = "none";
-      errorImg.src = `icons/unknown.png`;
+      errorMessageHandler();
       errorMessage.innerHTML = "NOT FOUND";
       document.body.style.backgroundImage = `url(/icons/bydefault.jpg)`;
         inputData.value = "";
@@ -109,7 +93,12 @@ const fetchData = async (_latitude, _longitude) => {
     })
     const forcastionDataObject = []
     fiveDaysData.forEach(element => {
-      const { tempInCelsius, description, iconsCode, weatherStatus, day } = getDataForDay(element);
+      const day = dayNames[new Date(element.dt_txt).getDay()];
+        const temp = element.main.temp;
+         const tempInCelsius = Math.floor(temp - 273.15) + "°"
+        const description = element.weather[0].description;
+         const iconsCode = element.weather[0].icon;
+        const weatherStatus = element.weather[0].main;
       const weatherDetailObj =
         { description, cityName, tempInCelsius, countryName, iconsCode, weatherStatus, day };
         forcastionDataObject.push(weatherDetailObj);
@@ -156,8 +145,8 @@ const autoSpinner = (spinner) => {
   else
     loader.style.display = "none";
 }
-const showCards=(e)=>{
-if(e){
+const showCards=(showcard)=>{
+if(showcard){
   container.style.display = "none";
   disable.style.display = "none";
   cards.style.display = "none";
@@ -171,4 +160,10 @@ const fatchDataFromUrl=async(url)=>{
   const response = await fetch(url);
   const jsonResponse = await response.json();
   return jsonResponse;
+}
+const errorMessageHandler=()=>{
+  disable.style.display = "block";
+      container.style.display = "none";
+      cards.style.display = "none";
+      errorImg.src = `icons/unknown.png`;
 }
