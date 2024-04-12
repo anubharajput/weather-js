@@ -21,7 +21,6 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
     padding: 10px 20px 40px 20px;
 }
 
@@ -29,7 +28,6 @@ body {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
 
 .container .search-bar {
@@ -67,10 +65,13 @@ body {
 
 .container .weather-container {
     display: none;
-    width: 35%;
+    width: fit-content;
+    min-width: 300px;
     margin: auto;
+    margin-top: 17px;
     background-color: white;
     border-radius: 13px;
+    overflow: hidden;
 }
 
 .container .weather-container .top-nav {
@@ -85,11 +86,8 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 10px 10px;
-    gap: 10px;
     background-color: rgb(209, 233, 246);
     padding-bottom: 25px;
-    border-bottom-left-radius: 13px;
-    border-bottom-right-radius: 13px;
 
 }
 
@@ -97,9 +95,13 @@ body {
     font-size: 1.3rem;
 }
 
+.container .weather-conditions {
+    font-size: 1.3rem;
+}
+
 .location {
     display: flex;
-    gap: 8px;
+    gap: 5px;
 }
 
 .loader {
@@ -110,7 +112,6 @@ body {
     width: 120px;
     height: 120px;
     -webkit-animation: spin 2s linear infinite;
-    /* Safari */
     animation: spin 2s linear infinite;
     margin: auto;
 }
@@ -129,8 +130,8 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 40px 20px;
     flex-wrap: wrap;
+    background-color: rgb(209, 233, 246);
 }
 
 .cards .card {
@@ -138,9 +139,37 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(233, 228, 228, 0.5);
-    padding: 15px 32px;
-    border-radius: 10px;
+    padding: 12px;
+}
+
+.cards .card img {
+    width: 50px;
+}
+
+.cards .card h3 {
+    font-size: 0.9rem;
+}
+
+.cards .card .temp .temp-details {
+    font-size: 20px;
+}
+
+.cards .card .temp .call {
+    font-size: 13px;
+}
+
+.cards .card .weather-condition {
+    font-size: 14px;
+}
+
+hr {
+    height: 1px;
+    background-color: rgb(147, 139, 139);
+    opacity: 0.9;
+    width: 90%;
+    margin: 20px 0px;
+    border: none;
+    outline: none;
 }
 
 @-webkit-keyframes spin {
@@ -182,26 +211,35 @@ body {
         width: 90%;
     }
 
-    .container .weather-container {
-        width: 90%;
-    }
+
 
     .container .weather-container .output .weather-conditions {
         font-size: 1.4rem;
+        padding: 7px 0px;
     }
 
-    .cards {
-        flex-direction: column;
-        gap: 15px;
-        width: 85%;
-        margin: auto;
+    .container .weather-conditions {
+        font-size: 1.24rem;
+        font-weight: 300;
+    }
+
+    .cards .card {
+        padding: 5px;
+    }
+
+    .cards .card img {
+        width: 45px;
     }
 }
 
 @media screen and (min-width:600px) {
 
-    .container .weather-container {
-        width: 65%;
+    .cards .card {
+        padding: 12px;
+    }
+
+    .cards .card img {
+        width: 50px;
     }
 }
 
@@ -211,7 +249,7 @@ body {
         width: 100%;
         margin: auto;
         justify-content: center;
-        gap: 25px;
+
     }
 }
 
@@ -224,13 +262,7 @@ body {
         width: 50%;
     }
 
-    .container .weather-container {
-        width: 30%;
-    }
 
-    .cards {
-        gap: 32px;
-    }
 }
 
 @media screen and (min-width:1440px) {
@@ -238,9 +270,7 @@ body {
         width: 50%;
     }
 
-    .container .weather-container {
-        width: 30%;
-    }
+
 
     .container .weather-container .top-nav {
         font-size: 1.8rem;
@@ -276,10 +306,14 @@ body {
         font-size: 2.5rem;
     }
 
+    .container .weather-conditions {
+        font-size: 1.8rem;
+    }
+
     .location {
         display: flex;
         gap: 13px;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
 
     .img-fluiddd {
@@ -295,12 +329,20 @@ body {
         font-weight: bold;
     }
 
-    .cards .card {
-        gap: 17px;
-    }
-
     .cal {
         font-size: 33px;
         font-weight: 600;
+    }
+
+    .cards .card img {
+        width: 128px;
+    }
+
+    .cards .card .temp .temp-details {
+        font-size: 32px;
+    }
+
+    .cards .card .temp .call {
+        font-size: 21px;
     }
 }

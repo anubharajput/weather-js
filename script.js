@@ -12,7 +12,7 @@ const disable = document.querySelector(".disable");
 const errorImg = document.querySelector(".img-fluiddd");
 const errorMessage = document.querySelector(".weather-content");
 const cards = document.querySelector(".cards");
-const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const dayNames = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
 let flag = true;
 const date = new Date();
 let cardContent = '';
@@ -46,17 +46,18 @@ const handleInputData = async () => {
     const res = await getLatitudeLongitude(inputData.value);
     const lat = res?.lat
     const lon = res?.lon
-    if(lat && lon){
+    if (lat && lon) {
       const weatherDeatils = await fetchData(lat, lon);
       inputData.value = "";
       weatherDeatils.forEach(element => {
         displayWeatherInfo(element);
-      })}
-    else{
+      })
+    }
+    else {
       errorMessageHandler();
       errorMessage.innerHTML = "NOT FOUND";
       document.body.style.backgroundImage = `url(/icons/bydefault.jpg)`;
-        inputData.value = "";
+      inputData.value = "";
     }
   }
 }
@@ -64,7 +65,7 @@ const handleInputData = async () => {
 const getLatitudeLongitude = async (cityName) => {
   try {
     autoSpinner(true);
-   showCards(true);
+    showCards(true);
     const jsonData = await fatchDataFromUrl(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${key}`);
     autoSpinner(false);
     showCards(false);
@@ -77,10 +78,10 @@ const getLatitudeLongitude = async (cityName) => {
 const fetchData = async (_latitude, _longitude) => {
   try {
     autoSpinner(true);
-   showCards(true);
+    showCards(true);
     const jsonResponse = await fatchDataFromUrl(`https://api.openweathermap.org/data/2.5/forecast?lat=${_latitude}&lon=${_longitude}&appid=${key}`);
     autoSpinner(false);
-      showCards(false);
+    showCards(false);
     const cityName = jsonResponse.city.name;
     const countryName = jsonResponse.city.country;
     const fiveDaysForcaste = [];
@@ -94,14 +95,14 @@ const fetchData = async (_latitude, _longitude) => {
     const forcastionDataObject = []
     fiveDaysData.forEach(element => {
       const day = dayNames[new Date(element.dt_txt).getDay()];
-        const temp = element.main.temp;
-         const tempInCelsius = Math.floor(temp - 273.15) + "°"
-        const description = element.weather[0].description;
-         const iconsCode = element.weather[0].icon;
-        const weatherStatus = element.weather[0].main;
+      const temp = element.main.temp;
+      const tempInCelsius = Math.floor(temp - 273.15) + "°"
+      const description = element.weather[0].description;
+      const iconsCode = element.weather[0].icon;
+      const weatherStatus = element.weather[0].main;
       const weatherDetailObj =
         { description, cityName, tempInCelsius, countryName, iconsCode, weatherStatus, day };
-        forcastionDataObject.push(weatherDetailObj);
+      forcastionDataObject.push(weatherDetailObj);
 
     });
     return forcastionDataObject;
@@ -127,12 +128,10 @@ const displayWeatherInfo = (weatherDeatils) => {
       <img src="icons/${iconsCode}.png" alt="">
       <div class="temp">
           <div class="temp-details">${tempInCelsius}</div>
-          <div class="cal">C</div>
+          <div class="call">C</div>
       </div>
-       <div class="location">
-           <div class="city">${cityName}</div>
-           <div class="country">${countryName}</div>
-      </div>
+
+     
    </div>`
     cards.innerHTML = cardContent;
   }
@@ -145,25 +144,36 @@ const autoSpinner = (spinner) => {
   else
     loader.style.display = "none";
 }
-const showCards=(showcard)=>{
-if(showcard){
-  container.style.display = "none";
-  disable.style.display = "none";
-  cards.style.display = "none";
+const showCards = (showcard) => {
+  if (showcard) {
+    container.style.display = "none";
+    disable.style.display = "none";
+    cards.style.display = "none";
+  }
+  else {
+    container.style.display = "block";
+    cards.style.display = "flex";
+  }
 }
-else{
-  container.style.display = "block";
-  cards.style.display = "flex";
-}
-}
-const fatchDataFromUrl=async(url)=>{
+const fatchDataFromUrl = async (url) => {
   const response = await fetch(url);
   const jsonResponse = await response.json();
   return jsonResponse;
 }
-const errorMessageHandler=()=>{
+const errorMessageHandler = () => {
   disable.style.display = "block";
-      container.style.display = "none";
-      cards.style.display = "none";
-      errorImg.src = `icons/unknown.png`;
+  container.style.display = "none";
+  cards.style.display = "none";
+  errorImg.src = `icons/unknown.png`;
 }
+inputData.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    console.log("enter pressed");
+    handleInputData();
+  }
+  else if(inputData.value===0 && e.keyCode===32){
+    console.log("spaceBar");
+    e.preventDefault();
+    return;
+  }
+});
