@@ -91,20 +91,18 @@ body {
 
 }
 
-.container .weather-container .output .weather-conditions {
+.container .weather-container .output #weather-conditions {
     font-size: 1.3rem;
 }
 
-.container .weather-conditions {
-    font-size: 1.3rem;
-}
+
 
 .location {
     display: flex;
     gap: 5px;
 }
 
-.loader {
+#loader {
     display: none;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
@@ -126,7 +124,7 @@ body {
     font-weight: bold;
 }
 
-.cards {
+#cards {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -134,7 +132,7 @@ body {
     background-color: rgb(209, 233, 246);
 }
 
-.cards .card {
+#cards .card {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,23 +140,23 @@ body {
     padding: 12px;
 }
 
-.cards .card img {
+#cards .card img {
     width: 50px;
 }
 
-.cards .card h3 {
+#cards .card h3 {
     font-size: 0.9rem;
 }
 
-.cards .card .temp .temp-details {
+#cards .card .temp .temp-details {
     font-size: 20px;
 }
 
-.cards .card .temp .call {
+#cards .card .temp .call {
     font-size: 13px;
 }
 
-.cards .card .weather-condition {
+#cards .card .weather-condition {
     font-size: 14px;
 }
 
@@ -213,38 +211,33 @@ hr {
 
 
 
-    .container .weather-container .output .weather-conditions {
+    .container .weather-container .output #weather-conditions {
         font-size: 1.4rem;
         padding: 7px 0px;
     }
 
-    .container .weather-conditions {
-        font-size: 1.24rem;
-        font-weight: 300;
-    }
-
-    .cards .card {
+    #cards .card {
         padding: 5px;
     }
 
-    .cards .card img {
+    #cards .card img {
         width: 45px;
     }
 }
 
 @media screen and (min-width:600px) {
 
-    .cards .card {
+    #cards .card {
         padding: 12px;
     }
 
-    .cards .card img {
+    #cards .card img {
         width: 50px;
     }
 }
 
 @media screen and (min-width:768px) {
-    .cards {
+    #cards {
         flex-direction: row;
         width: 100%;
         margin: auto;
@@ -302,13 +295,11 @@ hr {
         font-size: 5rem;
     }
 
-    .container .weather-container .output .weather-conditions {
+    .container .weather-container .output #weather-conditions {
         font-size: 2.5rem;
     }
 
-    .container .weather-conditions {
-        font-size: 1.8rem;
-    }
+    
 
     .location {
         display: flex;
@@ -316,15 +307,15 @@ hr {
         font-size: 1.8rem;
     }
 
-    .img-fluiddd {
+    #img-fluiddd {
         width: 16rem;
     }
 
-    .weather-content {
+    #weather-content {
         font-size: 30px;
     }
 
-    .cards .card h3 {
+    #cards .card h3 {
         font-size: 2rem;
         font-weight: bold;
     }
@@ -334,15 +325,19 @@ hr {
         font-weight: 600;
     }
 
-    .cards .card img {
+    #cards .card img {
         width: 128px;
     }
 
-    .cards .card .temp .temp-details {
+    #cards .card .temp .temp-details {
         font-size: 32px;
     }
 
-    .cards .card .temp .call {
+    #cards .card .temp .call {
         font-size: 21px;
+    }
+    .container .weather-container {
+        min-width: 500px;
+       
     }
 }

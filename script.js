@@ -3,15 +3,15 @@ const inputData = document.getElementById("input-display");
 const search = document.getElementById("search");
 const weatherImg = document.querySelector(".img-fluid");
 const weatherTemp = document.querySelector(".temp-details");
-const weatherCondition = document.querySelector(".weather-conditions");
-const cityLocation = document.querySelector(".city");
-const countryLocation = document.querySelector(".country");
-const loader = document.querySelector(".loader");
+const weatherCondition = document.getElementById("weather-conditions");
+const cityLocation = document.getElementById("city");
+const countryLocation = document.getElementById("country");
+const loader = document.getElementById("loader");
 const container = document.querySelector(".weather-container");
 const disable = document.querySelector(".disable");
-const errorImg = document.querySelector(".img-fluiddd");
-const errorMessage = document.querySelector(".weather-content");
-const cards = document.querySelector(".cards");
+const errorImg = document.getElementById("img-fluiddd");
+const errorMessage = document.getElementById("weather-content");
+const cards = document.getElementById("cards");
 const dayNames = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
 let flag = true;
 const date = new Date();
@@ -84,28 +84,23 @@ const fetchData = async (_latitude, _longitude) => {
     showCards(false);
     const cityName = jsonResponse.city.name;
     const countryName = jsonResponse.city.country;
-    const fiveDaysForcaste = [];
-    const fiveDaysData = jsonResponse.list.filter((e) => {
+    let dataContainer;
+    const fiveDaysData=[];
+    jsonResponse.list.forEach((e)=>{
       const forcasteDate = new Date(e.dt_txt).getDate();
-      if (!(fiveDaysForcaste).includes(forcasteDate)) {
-        return fiveDaysForcaste.push(forcasteDate);
-
-      }
-    })
-    const forcastionDataObject = []
-    fiveDaysData.forEach(element => {
-      const day = dayNames[new Date(element.dt_txt).getDay()];
-      const temp = element.main.temp;
+      if(dataContainer!=forcasteDate)
+      {
+        const day = dayNames[new Date(e.dt_txt).getDay()];
+      const temp = e.main.temp;
       const tempInCelsius = Math.floor(temp - 273.15) + "°"
-      const description = element.weather[0].description;
-      const iconsCode = element.weather[0].icon;
-      const weatherStatus = element.weather[0].main;
-      const weatherDetailObj =
-        { description, cityName, tempInCelsius, countryName, iconsCode, weatherStatus, day };
-      forcastionDataObject.push(weatherDetailObj);
-
-    });
-    return forcastionDataObject;
+      const description = e.weather[0].description;
+      const iconsCode = e.weather[0].icon;
+      const weatherStatus = e.weather[0].main;
+       fiveDaysData.push({ description, cityName, tempInCelsius, countryName, iconsCode, weatherStatus, day });
+      }
+      dataContainer =forcasteDate;
+    })
+    return fiveDaysData;
   } catch (e) {
     console.log(e);
   }
@@ -130,7 +125,6 @@ const displayWeatherInfo = (weatherDeatils) => {
           <div class="temp-details">${tempInCelsius}</div>
           <div class="call">C</div>
       </div>
-
      
    </div>`
     cards.innerHTML = cardContent;

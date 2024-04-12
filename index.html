@@ -4,18 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <title>Weather App</title>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
     <div class="container">
         <div class="search-bar">
             <input id="input-display" type="search" name="" placeholder="Enter City Name">
             <div class="search-btn" id="search">SEARCH</div>
         </div>
-        <div class="loader"></div>
+        <div id="loader"></div>
         <div class="weather-container">
             <div class="top-nav">Weather</div>
             <div class="output">
@@ -24,13 +26,13 @@
                     <div class="temp-details"></div>
                     <div class="cal">C</div>
                 </div>
-                <div class="weather-conditions"></div>
+                <div id="weather-conditions"></div>
                 <div class="location">
-                    <div class="city"></div>
-                    <div class="country"></div>
+                    <div id="city"></div>
+                    <div id="country"></div>
                 </div>
                 <hr>
-                <div class="cards">
+                <div id="cards">
 
                 </div>
             </div>
@@ -39,8 +41,8 @@
         <div class="weather-container disable">
             <div class="top-nav">Weather</div>
             <div class="output">
-                <img class="img-fluiddd" src="" alt="weather-icon">
-                <div class="weather-content"></div>
+                <img id="img-fluiddd" src="" alt="weather-icon">
+                <div id="weather-content"></div>
             </div>
 
         </div>
