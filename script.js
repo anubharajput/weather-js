@@ -1,7 +1,7 @@
 const key = `82005d27a116c2880c8f0fcb866998a0`;
 const inputData = document.getElementById("input-display");
 const search = document.getElementById("search");
-const weatherImg = document.querySelector(".img-fluid");
+const weatherImg = document.getElementById("img-fluid");
 const weatherTemp = document.querySelector(".temp-details");
 const weatherCondition = document.getElementById("weather-conditions");
 const cityLocation = document.getElementById("city");
@@ -19,7 +19,7 @@ let cardContent = '';
 let spinner = false;
 const currentLocationWeather = () => {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(async function (position) {
+    navigator.geolocation.getCurrentPosition(async(position)=> {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
       const weatherDeatils = await fetchData(latitude, longitude);
@@ -85,20 +85,19 @@ const fetchData = async (_latitude, _longitude) => {
     const cityName = jsonResponse.city.name;
     const countryName = jsonResponse.city.country;
     let dataContainer;
-    const fiveDaysData=[];
-    jsonResponse.list.forEach((e)=>{
+    const fiveDaysData = [];
+    jsonResponse.list.forEach((e) => {
       const forcasteDate = new Date(e.dt_txt).getDate();
-      if(dataContainer!=forcasteDate)
-      {
+      if (dataContainer != forcasteDate) {
         const day = dayNames[new Date(e.dt_txt).getDay()];
-      const temp = e.main.temp;
-      const tempInCelsius = Math.floor(temp - 273.15) + "°"
-      const description = e.weather[0].description;
-      const iconsCode = e.weather[0].icon;
-      const weatherStatus = e.weather[0].main;
-       fiveDaysData.push({ description, cityName, tempInCelsius, countryName, iconsCode, weatherStatus, day });
+        const temp = e.main.temp;
+        const tempInCelsius = Math.floor(temp - 273.15) + "°"
+        const description = e.weather[0].description;
+        const iconsCode = e.weather[0].icon;
+        const weatherStatus = e.weather[0].main;
+        fiveDaysData.push({ description, cityName, tempInCelsius, countryName, iconsCode, weatherStatus, day });
       }
-      dataContainer =forcasteDate;
+      dataContainer = forcasteDate;
     })
     return fiveDaysData;
   } catch (e) {
@@ -108,7 +107,7 @@ const fetchData = async (_latitude, _longitude) => {
 const displayWeatherInfo = (weatherDeatils) => {
   container.style.display = "block";
   const { description, cityName, tempInCelsius, countryName, iconsCode, weatherStatus, day } = weatherDeatils;
-  if (flag == true) {
+  if (flag === true) {
     weatherImg.src = `icons/${iconsCode}.png`;
     weatherTemp.innerHTML = tempInCelsius;
     weatherCondition.innerHTML = description;
@@ -165,7 +164,7 @@ inputData.addEventListener("keydown", (e) => {
     console.log("enter pressed");
     handleInputData();
   }
-  else if(inputData.value===0 && e.keyCode===32){
+  else if (inputData.value === 0 && e.keyCode === 32) {
     console.log("spaceBar");
     e.preventDefault();
     return;
