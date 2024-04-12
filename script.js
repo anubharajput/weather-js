@@ -19,7 +19,7 @@ let cardContent = '';
 let spinner = false;
 const currentLocationWeather = () => {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(async(position)=> {
+    navigator.geolocation.getCurrentPosition(async (position) => {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
       const weatherDeatils = await fetchData(latitude, longitude);
@@ -38,7 +38,7 @@ currentLocationWeather();
 const handleInputData = async () => {
   cardContent = "";
   flag = true;
-  if (inputData.value.trim() == "") {
+  if (inputData.value.trim() === "") {
     alert("Enter city name");
     inputData.value = "";
   }
@@ -159,13 +159,11 @@ const errorMessageHandler = () => {
   cards.style.display = "none";
   errorImg.src = `icons/unknown.png`;
 }
-inputData.addEventListener("keydown", (e) => {
+inputData.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
-    console.log("enter pressed");
     handleInputData();
   }
-  else if (inputData.value === 0 && e.keyCode === 32) {
-    console.log("spaceBar");
+  else if (inputData.value === "" && e.keyCode === 32) {
     e.preventDefault();
     return;
   }
