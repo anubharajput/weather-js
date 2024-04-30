@@ -56,7 +56,7 @@ const handleInputData = async () => {
     else {
       errorMessageHandler();
       errorMessage.innerHTML = "NOT FOUND";
-      document.body.style.backgroundImage = `url(/icons/bydefault.jpg)`;
+      document.body.style.backgroundImage = `url(icons/bydefault.jpg)`;
       inputData.value = "";
     }
   }
@@ -113,7 +113,7 @@ const displayWeatherInfo = (weatherDeatils) => {
     weatherCondition.innerHTML = description;
     cityLocation.innerHTML = cityName;
     countryLocation.innerHTML = countryName;
-    document.body.style.backgroundImage = `url(/icons/${weatherStatus}.jpg)`;
+    document.body.style.backgroundImage = `url(icons/${weatherStatus}.jpg)`;
   } else {
     cards.style.display = "flex";
     cardContent += `
